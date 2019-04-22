@@ -13,8 +13,6 @@ cheerio.set('headers', { // 크롤링 방지 우회를 위한 User-Agent setting
     'Accept-Charset': 'utf-8' 
 });
 
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.send("SE Router Call!");
