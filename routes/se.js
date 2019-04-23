@@ -1,11 +1,9 @@
 var moment = require('moment');
-var request = require('request');
 var cheerio = require('cheerio-httpcli');
 var express = require('express');
 var router = express.Router();
 
 var momentObject = moment();
-var dayOfWeek = ['', '월', '화', '수', '목', '금', '토', '일'];
 var param = {};
 
 cheerio.set('headers', { // 크롤링 방지 우회를 위한 User-Agent setting 
@@ -13,11 +11,7 @@ cheerio.set('headers', { // 크롤링 방지 우회를 위한 User-Agent setting
     'Accept-Charset': 'utf-8' 
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.send("SE Router Call!");
-});
-
+//학생 식당 식단 정보 조회
 router.get('/getStudentRestaurantMenu', function(request, response, next) {
     var getDate = request.param("date");
     var addressDate;
@@ -32,23 +26,14 @@ router.get('/getStudentRestaurantMenu', function(request, response, next) {
         addressDate = getDate;
     }
 
-    //console.log("날짜 테스트 : " + moment(addressDate).subtract(10, 'days').format("YYYY-MM-DD"));
-
-    year = moment(addressDate).year();
-    month = moment(addressDate).month() + 1;
-    date = moment(addressDate).date();
-    day = moment(addressDate).day();
-
-    if(day == 0) {
+    if(moment(addressDate).day() == 0) {
         studentRestaurantAddress = "http://www.kumoh.ac.kr/ko/restaurant01.do?mode=menuList&srDt=" + moment(addressDate).subtract(1,"days").format("YYYY-MM-DD");
         addressDate = moment(addressDate).subtract(1,"days").format("YYYY-MM-DD");
-        year = moment(addressDate).year();
-        month = moment(addressDate).month() + 1;
-        date = moment(addressDate).date();
-        day = moment(addressDate).day();
     } else {
         studentRestaurantAddress = "http://www.kumoh.ac.kr/ko/restaurant01.do?mode=menuList&srDt=" + addressDate;
     }
+
+    var day = moment(addressDate).day();
 
     cheerio.fetch(studentRestaurantAddress, param, function(err, $, res){ 
         if(err){ 
@@ -97,18 +82,13 @@ router.get('/getStudentRestaurantMenu', function(request, response, next) {
         var selectArray = new Array();
         
         for(var i = 0; i < jsonArray.length; i++) {
-            if(jsonArray[i].date == addressDate) {
+            if(jsonArray[i].date == getDate) {
                 selectArray.push(jsonArray[i]);
             }
         }
         
         response.send(JSON.stringify(selectArray));
     });
-
-});
-
-router.get('/getStudentDomMenu', function(req, res, next) {
-    res.send("SE Router Call!");
 });
 
 module.exports = router;
