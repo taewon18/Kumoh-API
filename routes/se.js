@@ -49,23 +49,23 @@ router.get('/getRestaurantMenu', function(request, response, next) {
     }
 
     switch(getRestaurantClassfication) { //쿼리로 받은 식당 분류, 식당 별로 식사 구분을 위해 count값을 달리함
-        case "1" : restaurantAddress = studentRestaurantAddress + addressDate;
+        case "1" :  restaurantAddress = studentRestaurantAddress + addressDate;
                     start_count = 1;
                     add_count = 1;
             break;
-        case "2" : restaurantAddress = employeeRestaurantAddress + addressDate;
+        case "2" :  restaurantAddress = employeeRestaurantAddress + addressDate;
                     start_count = 2;
                     add_count = 1;
             break;
-        case "3" : restaurantAddress = dormBlueRestaurantAddress + addressDate;
+        case "3" :  restaurantAddress = dormBlueRestaurantAddress + addressDate;
                     start_count = 2;
                     add_count = 1;
             break;
-        case "4" : restaurantAddress = dormUp1RestaurantAddress + addressDate;
+        case "4" :  restaurantAddress = dormUp1RestaurantAddress + addressDate;
                     start_count = 1;
                     add_count = 2;
             break;
-        case "5" : restaurantAddress = dormUp3RestaurantAddress + addressDate;
+        case "5" :  restaurantAddress = dormUp3RestaurantAddress + addressDate;
                     start_count = 2;
                     add_count = 1;
             break;
