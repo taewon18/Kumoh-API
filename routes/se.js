@@ -41,7 +41,7 @@ router.get('/getRestaurantMenu', function(request, response, next) {
     }
 
     if(getRestaurantClassfication == undefined) {
-        getRestaurantClassfication = 0;
+        getRestaurantClassfication = "1";
     }
 
     if(moment(addressDate).day() == 0) {
